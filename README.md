@@ -180,3 +180,31 @@ Em projetos anteriores, arquivos eram armazenados diretamente no banco de dados 
 Os documentos são armazenados no sistema de arquivos do servidor, em diretórios associados ao identificador de cada cliente, enquanto o banco de dados mantém as referências necessárias para localizar esses arquivos.
 
 Essa implementação permitiu separar o armazenamento dos arquivos da persistência dos demais dados da aplicação e disponibilizar os documentos ao frontend quando necessário.
+
+## 🚀 Ambiente de produção
+
+O backend está hospedado em uma **VPS Linux (Ubuntu)** sob minha administração, onde também está instalado e configurado o banco de dados **PostgreSQL** utilizado pela aplicação.
+
+A API é executada utilizando **PM2** para gerenciamento do processo Node.js, enquanto o **Nginx** atua como proxy reverso, recebendo as requisições e encaminhando-as para a aplicação.
+
+O processo de deploy é realizado através do **Git**, atualizando o código diretamente na VPS e reiniciando a aplicação através do PM2 para disponibilizar as novas versões.
+
+A configuração e manutenção do ambiente de produção são realizadas por mim, incluindo:
+
+- Configuração e manutenção da VPS.
+- Configuração do ambiente Node.js.
+- Configuração e gerenciamento do PostgreSQL.
+- Configuração do Nginx como proxy reverso.
+- Gerenciamento da aplicação com PM2.
+- Realização dos deploys e atualização da aplicação em produção.
+- Monitoramento e manutenção da disponibilidade da API.
+
+O backend permanece disponível **24/7** para atender às requisições realizadas pelo frontend do CRM.
+
+## 📝 Observações
+
+Este repositório contém o backend do CRM Camargo Cred.
+
+O frontend da aplicação está disponível em um repositório separado:
+
+- **Frontend:** [CRM Camargo Cred — Frontend](https://github.com/bunhakgabriel/CrmCamargoCred-Front)
