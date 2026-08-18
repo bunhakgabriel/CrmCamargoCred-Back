@@ -97,3 +97,86 @@ O projeto está em evolução contínua e possui planos para incorporar novas fu
 * **PM2** — gerenciamento do processo Node.js em produção, garantindo que a aplicação permaneça em execução.
 * **Git** — utilizado para versionamento e atualização do código no ambiente de produção.
 * **VPS** — infraestrutura utilizada para hospedagem da API e do banco de dados PostgreSQL.
+
+## 🏗️ Arquitetura
+
+O backend utiliza uma arquitetura organizada em camadas, buscando separar as responsabilidades relacionadas ao recebimento das requisições, regras de negócio e acesso aos dados.
+
+O fluxo principal da aplicação segue a seguinte estrutura:
+
+```text
+Frontend
+   │
+   ▼
+Routes
+   │
+   ▼
+Middlewares
+   │
+   ▼
+Controllers
+   │
+   ▼
+Services
+   │
+   ├──────► Mappers
+   │
+   ▼
+Repositories
+   │
+   ▼
+PostgreSQL
+```
+
+### Routes
+
+Responsáveis por definir os endpoints da API e direcionar as requisições para os controllers correspondentes.
+
+### Middlewares
+
+Responsáveis por operações que devem ocorrer antes da execução dos controllers, como autenticação e autorização das requisições, além do tratamento centralizado de erros.
+
+### Controllers
+
+Responsáveis por lidar com o contexto HTTP da aplicação, recebendo as requisições, acionando os services e retornando as respostas para o frontend.
+
+### Services
+
+Concentram a lógica da aplicação e coordenam as operações necessárias para atender às requisições recebidas pelos controllers.
+
+### Repositories
+
+Responsáveis pelo acesso ao banco de dados, executando as operações de persistência e consulta no PostgreSQL.
+
+### Mappers
+
+Responsáveis por transformar e adaptar os dados entre diferentes estruturas utilizadas pela aplicação.
+
+
+## 🧩 Principais desafios técnicos
+
+### 🖥️ Configuração do ambiente de produção
+
+Um dos principais desafios do projeto foi disponibilizar a API em produção utilizando uma infraestrutura própria, sem depender de plataformas gerenciadas para realizar a hospedagem do backend.
+
+Para isso, foi necessário configurar e administrar uma **VPS Linux**, preparar o ambiente para execução da aplicação, instalar e configurar o **PostgreSQL**, utilizar o **PM2** para gerenciamento do processo Node.js e configurar o **Nginx** como proxy reverso para disponibilização da API.
+
+Além do desenvolvimento da aplicação, esse processo proporcionou experiência prática com deploy, configuração de servidores e manutenção de uma aplicação em ambiente de produção.
+
+### 🔐 Autenticação, autorização e proteção das rotas
+
+Por se tratar de um sistema que trabalha com informações internas do escritório, outro desafio importante foi garantir que somente usuários autorizados pudessem acessar os recursos da API.
+
+A autenticação é realizada através do **Firebase**, enquanto o backend recebe e valida o token enviado pelo frontend em cada requisição protegida. Após a validação do token, o sistema também verifica se o e-mail autenticado pertence à lista de usuários autorizados.
+
+Dessa forma, requisições sem um token válido ou realizadas por usuários não autorizados são bloqueadas antes de acessar os recursos protegidos da aplicação.
+
+### 📄 Armazenamento e gerenciamento de documentos
+
+Outro desafio foi definir uma estratégia adequada para o armazenamento dos documentos vinculados aos clientes.
+
+Em projetos anteriores, arquivos eram armazenados diretamente no banco de dados utilizando Base64. Para este projeto, considerando a necessidade de trabalhar com múltiplos documentos por cliente, foi adotada uma abordagem diferente para evitar o armazenamento dos arquivos diretamente no PostgreSQL.
+
+Os documentos são armazenados no sistema de arquivos do servidor, em diretórios associados ao identificador de cada cliente, enquanto o banco de dados mantém as referências necessárias para localizar esses arquivos.
+
+Essa implementação permitiu separar o armazenamento dos arquivos da persistência dos demais dados da aplicação e disponibilizar os documentos ao frontend quando necessário.
