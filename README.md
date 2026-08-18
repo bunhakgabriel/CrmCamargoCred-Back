@@ -73,3 +73,27 @@ O projeto está em evolução contínua e possui planos para incorporar novas fu
 * Estrutura de resposta contendo status da operação, dados, mensagens e metadados adicionais quando necessário.
 * Tratamento centralizado de erros da aplicação.
 * Retorno de códigos HTTP adequados para diferentes situações de erro.
+
+## 🛠️ Tecnologias
+
+### Backend
+
+* **Node.js** — ambiente de execução utilizado no desenvolvimento do backend.
+* **Express** — framework utilizado para construção da API e gerenciamento das rotas e middlewares.
+* **Firebase Admin SDK** — integração com o Firebase no backend, incluindo validação dos tokens de autenticação.
+* **Multer** — processamento dos arquivos enviados pelo frontend para upload de documentos.
+* **CORS** — configuração do acesso da API para comunicação com o frontend.
+* **dotenv** — gerenciamento das variáveis de ambiente utilizadas pela aplicação.
+
+### Banco de dados
+
+* **PostgreSQL** — banco de dados relacional utilizado para persistência das informações da aplicação.
+* **node-postgres (pg)** — biblioteca utilizada para estabelecer e gerenciar a comunicação entre o backend e o PostgreSQL.
+
+### Infraestrutura e produção
+
+* **Ubuntu Linux** — sistema operacional utilizado na VPS de produção.
+* **Nginx** — servidor utilizado como proxy reverso para disponibilização da API.
+* **PM2** — gerenciamento do processo Node.js em produção, garantindo que a aplicação permaneça em execução.
+* **Git** — utilizado para versionamento e atualização do código no ambiente de produção.
+* **VPS** — infraestrutura utilizada para hospedagem da API e do banco de dados PostgreSQL.
